@@ -1,0 +1,784 @@
+#wrapper {
+	margin: 0 auto;
+	display: flex;
+	flex-wrap: wrap;
+}
+
+/*タイトル*/
+
+.title {
+	text-align: center;
+	margin: 40px 0;
+	font-size: 32px;
+}
+
+.box {
+	width: 100%;
+	/*    padding:50px;*/
+	border: solid 3px #000;
+}
+
+/*レフトカラム*/
+.left-column {
+	width: 75%;
+	background: gray;
+	margin: 0;
+}
+
+/*サイドバー*/
+.right-column {
+	width: 250px;
+	height: 450px;
+	color: #000;
+	margin: 0;
+	padding: 0 20px;
+}
+
+.rigth-column-box {
+	height: 100%;
+	border: 1px solid #000;
+	min-height: 300px;
+}
+
+.rigth-column-box li {
+	list-style: none;
+	padding-top: 40px;
+	font-size: 18px;
+}
+
+.rigth-column-box li:last-child {
+	padding-bottom: 40px;
+}
+
+/*フォーム・ボックス*/
+
+.new_user {
+	height: 500px;
+	text-align: center;
+}
+
+.form {
+	padding: 50px;
+	min-height: 500px;
+}
+
+.auto_login {
+	margin: 40px 0;
+}
+
+.item {}
+
+.label {
+	float: left;
+}
+
+.inputs {
+	width: 100%;
+	font-size: 18px;
+	padding: 25px;
+	margin-bottom: 30px;
+}
+
+
+/*ボタン*/
+
+.btn {
+	padding: 15px 30px;
+	background-color: #000;
+	color: #fff;
+	border-radius: 5px;
+	border-bottom: solid 4px #627295;
+	font-size: 16px;
+	display: flex;
+}
+
+.btn:hover {
+	cursor: pointer;
+}
+
+.btn:active {
+	-webkit-transform: translateY(4px);
+	transform: translateY(4px);
+	/*下に動く*/
+	box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.2);
+	/*影を小さく*/
+	border-bottom: none;
+}
+
+
+
+/*ログイン画面*/
+
+.form-btn {
+	overflow: hidden;
+	margin: 40px 0;
+}
+
+/*退会画面*/
+
+.withdrawal-user {
+	height: 500px;
+}
+
+.withdrawal-item {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	-webkit-transform: translate(-50%, -50%);
+	Safari用 transform: translate(-50%, -50%);
+}
+
+/*パスワード変更画面*/
+
+.btn-title {
+	width: 80%;
+	text-align: left;
+	padding-bottom: 30px;
+}
+
+.btn-name {
+	font-size: 24px;
+}
+
+/*商品詳細画面*/
+
+/*
+.product-title{
+    overflow: hidden
+}
+
+.product-title-left {
+    width: 100%;
+}
+
+.product-title-right h2 {
+    text-align: right;
+}
+
+.main-img {
+    height: 400px;
+    width: 90%;
+    margin: 30px;
+    background: pink;
+}
+
+.sub-img-box {
+    overflow: hidden;
+}
+
+.sub-img {
+    float: left;
+    width: 200px;
+    height: 125px;
+    margin-top: 10px;
+    background: blue;
+}
+
+.comment {
+    height: 200px;
+    width: 100%;
+    border: solid;
+    margin: 30px;
+}
+
+.product-box {
+    overflow: hidden;
+}
+
+.product-box-left {
+    float: left;
+}
+
+.product-box-right {
+    float: right;
+}
+
+.product-box-text {
+    float: left;
+}
+
+
+*/
+
+/*プロフィール編集画面*/
+
+
+.prof-box {
+	text-align: center;
+}
+
+.prof-inputs {}
+
+.form-group > .option {
+	position: relative;
+	top: 10px;
+	padding-left: 10px;
+}
+
+
+.profirl-contents {
+	display: block;
+	text-align: left;
+	padding-bottom: 10px;
+	width: 100%;
+}
+
+/*商品登録ページ*/
+
+
+.product {
+	text-align: left;
+	width: 80%;
+}
+
+/*マイページ*/
+
+.car-register {}
+
+.img-box {
+	height: 150px;
+	width: 150px;
+}
+
+.img-box img {
+	width: 100%;
+	height: 100%;
+}
+
+.contact-register {}
+
+.like {}
+
+.car-list {
+	display: flex;
+	justify-content: center
+}
+
+.mypage-title {
+	text-align: left;
+	margin: 30px 0;
+	padding-left: 15px;
+	border-left: 6px solid #b6a489;
+}
+
+/*その他*/
+/*エラーメッセージ*/
+.area-msg {
+	font-size: 20px;
+	color: red;
+	text-align: center;
+	padding: 10px 0px;
+}
+
+
+.err_msg {
+	color: red;
+	margin-bottom: 30px;
+}
+
+/*msg-succes表示用CSS*/
+.msg-slide {
+	position: fixed;
+	top: 0;
+	width: 100%;
+	height: 40px;
+	background: rgba(122, 206, 230, 0.6);
+	text-align: center;
+	font-size: 16px;
+	line-height: 40px;
+}
+
+
+
+.pass-reminder-text {
+	font-size: 20px;
+	margin-bottom: 20px;
+	line-height: 150%;
+	text-align: center;
+}
+
+.category-id {
+	width: 100%;
+
+}
+
+.counter-text {
+	float: right;
+}
+
+.imgDrop-container {
+	width: 33.333%;
+	float: left;
+	box-sizing: border-box;
+	padding-right: 15px;
+}
+
+.area-drop {
+	width: 100%;
+	height: 140px;
+	background: #f6f5f4;
+	color: #ccc;
+	text-align: center;
+	line-height: 140px;
+	position: relative;
+	box-sizing: border-box;
+	display: block;
+}
+
+.input-file {
+	opacity: 0;
+	width: 100%;
+	height: 140px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 2;
+}
+
+img {
+	height: 100%;
+	width: 100%;
+}
+
+label img {
+	height: 100%;
+	width: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.label-require {
+	font-size: 14px;
+	color: white;
+	background: #fe8a8b;
+	padding: 3px 5px;
+	margin-left: 5px;
+	vertical-align: bottom;
+}
+
+.wrapper {
+	overflow: hidden;
+}
+
+.product-search-bar {
+	float: left;
+	box-sizing: border-box;
+	margin: 0 20px;
+	padding: 15px;
+	min-height: 600px;
+	width: 200px;
+	border: 1px solid #000;
+}
+
+.search-bar-title {
+	font-size: 14px;
+	text-align: left;
+}
+
+.search-bar-select {
+	height: 45px;
+	width: 100%;
+	padding: 0 10px;
+}
+
+.search-bar-button {
+	padding: 15px 30px;
+	margin-top: 20px;
+	background-color: #000;
+	color: #fff;
+	border-radius: 5px;
+	border-bottom: solid 4px #627295;
+	font-size: 16px;
+	width: 100%;
+	text-align: center;
+}
+
+.search-bar-select:hover,
+.search-bar-button:hover {
+	cursor: pointer;
+}
+
+div {}
+
+.selectbox {
+	margin: 10px 0;
+}
+
+.search-title {
+	overflow: hidden;
+	margin-bottom: 30px;
+	padding: 5px 10px;
+	height: 40px;
+	line-height: 30px;
+	border: 1px solid #000;
+}
+
+.search-title-left {
+	float: left;
+}
+
+.search-title-right {
+	float: right;
+}
+
+.panel-list {
+	overflow: hidden;
+}
+
+.panel {
+	float: left;
+	box-sizing: border-box;
+	margin-bottom: 15px;
+	margin-right: 15px;
+	min-height: 200px;
+	width: 30%;
+	text-decoration: none;
+}
+
+.price {
+	display: block;
+	font-weight: bold;
+}
+
+.panel-head {
+	height: 150px;
+}
+
+.pagination {
+	position: relative;
+	overflow: hidden;
+
+}
+
+.pagination-list {
+	position: relative;
+	left: 50%;
+	float: left;
+	padding-left: 0;
+	list-style: none;
+}
+
+.list-item {
+	position: relative;
+	left: -50%;
+	float: left;
+	margin-right: 5px;
+}
+
+.list-item a {
+	display: block;
+	padding: 5px 10px;
+	background: #eee;
+	color: black;
+	text-decoration: none;
+
+}
+
+.list-item.active a {
+	background: #333;
+	color: white;
+}
+
+/*商品詳細ページ*/
+.debug {
+	padding: 5px 10px;
+	color: white;
+	background: #7acee6;
+	margin-right: 10px;
+	font-size: 16px;
+	vertical-align: middle;
+	position: relative;
+	top: -4px;
+}
+
+.product-img-box {
+	overflow: hidden;
+}
+
+.product-img-box img {
+	width: 100%;
+}
+
+.product-img-box .img-main {
+	width: 750px;
+	height: 750px;
+	float: left;
+	padding-right: 15px;
+	box-sizing: border-box;
+}
+
+.product-img-box .img-sub {
+	width: 250px;
+	height: 250px;
+	float: left;
+	background: #f6f5f4;
+	padding: 15px;
+	box-sizing: border-box;
+}
+
+.product-img-box .img-sub:hover {
+	cursor: pointer;
+}
+
+.product-img-box .img-sub img {
+	margin-bottom: 15px;
+}
+
+.product-img-box .img-sub img:last-child {
+	margin-bottom: 0;
+}
+
+.product-comment {
+	background: #f6f5f4;
+	padding: 15px;
+	margin-top: 15px;
+	min-height: 150px;
+}
+
+.product-buy {
+	overflow: hidden;
+	margin-top: 15px;
+	margin-bottom: 50px;
+	height: 50px;
+	line-height: 50px;
+}
+
+.product-buy .item-left {
+	float: left;
+}
+
+.product-buy .item-right {
+	float: right;
+}
+
+.product-buy .price {
+	font-size: 32px;
+	margin-right: 30px;
+}
+
+.product-buy .btn {
+	border: none;
+	font-size: 18px;
+	padding: 10px 30px;
+}
+
+.product-buy .btn:hover {
+	cursor: pointer;
+}
+
+/*連絡掲示板ページ*/
+
+.msg-info {
+	background: #f6f5f4;
+	padding: 15px;
+	overflow: hidden;
+	margin-bottom: 15px;
+}
+
+.msg-info .avatar {
+	width: 80px;
+	height: 80px;
+	border-radius: 40px;
+}
+
+.area-bord .msg-cnt .avatar img {
+	width: 80px;
+	height: 80px;
+	border-radius: 40px;
+}
+
+.msg-info .avatar-img {
+	text-align: center;
+	width: 100px;
+	float: left;
+}
+
+.msg-info .avatar-info {
+	float: left;
+	padding-left: 15px;
+	width: 500px;
+}
+
+.msg-info .product-info {
+	padding-left: 15px;
+	float: left;
+}
+
+.msg-info .product-info .left,
+.msg-info .product-info .right {
+	float: left;
+}
+
+.msg-info .product-info .right {
+	padding-left: 15px;
+	padding-top: 15px;
+}
+
+.msg-info .product-info .price {
+	display: inline-block;
+}
+
+.area-bord {
+	height: 500px;
+	overflow: scroll;
+	background: #f6f5f4;
+	padding: 15px;
+}
+
+.area-send-msg {
+	background: #f6f5f4;
+	padding: 15px;
+	overflow: hidden;
+}
+
+.area-send-msg textarea {
+	width: 100%;
+	background: white;
+	height: 100px;
+	padding: 15px;
+}
+
+.area-send-msg .btn-send {
+	width: 150px;
+	float: left;
+	margin-top: 0;
+}
+
+.area-bord .msg-cnt {
+	width: 80%;
+	overflow: hidden;
+	margin-bottom: 30px;
+}
+
+.area-bord .msg-cnt .avatar {
+	overflow: hidden;
+	float: left;
+}
+
+area-bord .msg-cnt .avatar img {
+	width: 40px;
+	height: 40px;
+	border-radius: 20px;
+	float: left;
+}
+
+.area-bord .msg-cnt .msg-inrTxt {
+	width: 85%;
+	float: left;
+	border-radius: 5px;
+	padding: 10px;
+	margin: 15px 0 0 25px;
+	position: relative;
+	background: #f6e2df;
+}
+
+.area-bord .msg-cnt .msg-left .msg-inrTxt {}
+
+.area-bord .msg-cnt.msg-left .msg-inrTxt > .triangle {
+	position: absolute;
+	left: -20px;
+	width: 0;
+	height: 0;
+	border-top: 10px solid transparent;
+	border-right: 15px solid #f6e2df;
+	border-left: 10px solid transparent;
+	border-bottom: 10px solid transparent;
+}
+
+.area-bord .msg-cnt.msg-right {
+	float: right;
+}
+
+.area-bord .msg-cnt.msg-right .msg-inrTxt {
+	background: #d2eaf0;
+	margin: 20px 25px 0 0;
+}
+
+.area-bord .msg-cnt.msg-right .msg-inrTxt > .triangle {
+	position: absolute;
+	right: -20px;
+	width: 0;
+	height: 0;
+	border-top: 10px solid transparent;
+	border-right: 10px solid transparent;
+	border-left: 15px solid #d2eaf0;
+	border-bottom: 10px solid transparent;
+}
+
+.area-bord .msg-cnt .msg-right .msg-inrTxt {
+	float: right;
+}
+
+.area-bord .msg-cnt.msg-right .avatar {
+	float: right;
+}
+
+/*お気に入りアイコン*/
+.icn-like {
+	float: right;
+	color: #ddd;
+	font-size: 2em;
+	margin-right: 30px;
+}
+
+.icn-like:hover {
+	cursor: pointer;
+}
+
+.icn-like.active {
+	float: right;
+	color: #fe8a8b;
+}
+
+.age-text {
+	font-size: 18px;
+	margin-left: 12px;
+}
+
+.mypage-section {
+	background: #fafafa;
+	min-height: 300px;
+	margin-top: 50px;
+}
+
+.table {
+	width: 100%;
+	text-align: left;
+}
+
+.table > tbody {
+	background-color: #eeeeee;
+}
+
+.mypage-section-container {}
+
+#contents {
+	overflow: hidden;
+	margin: 20px auto;
+}
+
+.area-bord .msg-left {
+	width: 80%;
+	overflow: hidden;
+	margin-bottom: 30px;
+	margin-left: 0;
+}
+
+.msg-btn {
+	float: right;
+	font-size: 24px;
+	padding: 20px 50px;
+	;
+}
+
+.msg-btn:hover {
+	cursor: pointer;
+	border: 2px solid #dfdfdf;
+}
+
+.panel-body {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
