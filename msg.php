@@ -52,6 +52,7 @@ debug('取得した相手のユーザーID：'.$partnerUserId);
 //DBから取引相手のユーザー情報を取得
 if(isset($partnerUserId)){
 	$partnerUserInfo = getUser($partnerUserId);
+
 }
 
 //相手のユーザー情報が取れたかチェック
@@ -62,7 +63,7 @@ if(empty($partnerUserInfo)){
 
 //DBから自分のユーザー情報を取得
 $myUserInfo = getUser($_SESSION['user_id']);
-debug('取得した自分のユーザーデータ：'.print_r($partnerUserInfo, true));
+debug('取得した相手のユーザーデータ：'.print_r($partnerUserInfo, true));
 //自分のユーザー情報が取れたかチェック
 if(empty($myUserInfo)){
 	error_log('エラー発生：自分のユーザー情報が取得できませんでした');
