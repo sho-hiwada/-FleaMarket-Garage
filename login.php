@@ -10,7 +10,7 @@
 
 	debug('======================================');
 	debug('ログインページ');
-	debug('＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝');
+	debug('======================================');
 	debugLogStart();
 
 	//ログイン認証
@@ -129,7 +129,6 @@
 				if(!empty($err_msg['common'])) echo $err_msg['common'];
 				?>
 			</div>
-			
 			<div class="guest">
 				<p class="guest-text"><br>メールアドレス： guest@gmail.com<br>パスワード：111111<br></p>
 			</div>
@@ -166,9 +165,6 @@
 						<a href="passReminder.php">パスワードを忘れですか？</a>
 					</div>
 				</form>
-				
-				
-
 			</div>
 		</div>
 	</div>

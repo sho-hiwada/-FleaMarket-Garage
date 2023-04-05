@@ -209,7 +209,7 @@ include ( dirname(__file__) . '/header.php');
 									<img src="<?php echo getFormData('pic'); ?>" alt="" class="prev-img" style="<?php if(empty(getFormData('pic'))) echo 'display:none;' ?>">
 									ドラッグ＆ドロップ
 								</label>
-								
+
 								<div class="area-msg">
 									<?php
 										if(!empty($err_msg['pic'])) echo $err_msg['pic'];
@@ -221,9 +221,6 @@ include ( dirname(__file__) . '/header.php');
 	if(!empty($err_msg['pic'])) echo $err_msg['pic'];
 									?>
 							</div>
-
-	
-
 
 						</div>
 						<div class="prof_item">

@@ -5,7 +5,7 @@ require('function.php');
 
 debug('======================================');
 debug('商品登録ページ');
-debug('＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝');
+debug('======================================');
 debugLogStart();
 
 //ログイン認証
@@ -23,111 +23,110 @@ $p_id = (!empty($_GET['p_id'])) ? $_GET['p_id'] : '';
 $dbFormData = (!empty($p_id)) ? getProduct($_SESSION['user_id'], $p_id) : '';
 //新規登録画面か編集画面か判別用フラグ
 $edit_flg = (empty($dbFormData)) ? false : true;
-debug('判別用フラグ結果：'.print_r($edit_flg, true));
+debug('判別用フラグ結果：' . print_r($edit_flg, true));
 //DBからカテゴリデータを取得
 $dbCategoryData = getCategory();
-debug('商品ID:'.$p_id);
-debug('フォーム用DBデータ：'.print_r($dbFormData, true));
-debug('カテゴリーデータ：'.print_r($dbCategoryData, true));
+debug('商品ID:' . $p_id);
+debug('フォーム用DBデータ：' . print_r($dbFormData, true));
+debug('カテゴリーデータ：' . print_r($dbCategoryData, true));
 
 //パラメーター改ざんチェック
 //========================================
 //	GETパラメーターはあるが、改ざんされている（URLをいじった）場合、正しい商品データが読み取れないため、マイページへ遷移させる
-if(!empty($p_id) && empty($dbFormData)){
+if (!empty($p_id) && empty($dbFormData)) {
 	debug('GETパラメーターの商品IDが違います。マイページへ遷移します。');
-	header("Location:mypage.php");//マイページへ
+	header("Location:mypage.php"); //マイページへ
 }
 
 //POST送信があった時
-if(!empty($_POST)){
+if (!empty($_POST)) {
 	debug('POST送信があります');
-	debug('POST情報：'.print_r($_POST, true));
-	debug('FILE情報：'.print_r($_FILES, true));
-	
-//	変数にユーザー情報を代入
+	debug('POST情報：' . print_r($_POST, true));
+	debug('FILE情報：' . print_r($_FILES, true));
+
+	//	変数にユーザー情報を代入
 	$name = $_POST['name'];
 	$category = $_POST['category_id'];
-	$price = (!empty($_POST['price'])) ? $_POST['price'] : 0;//0や空文字の場合は、0を入れる。デフォルトでは0
+	$price = (!empty($_POST['price'])) ? $_POST['price'] : 0; //0や空文字の場合は、0を入れる。デフォルトでは0
 	$comment = $_POST['comment'];
-//	画像をアップロードし、パスを格納
-	$pic1 = ( !empty($_FILES['pic1']['name']) ) ? uploadImg($_FILES['pic1'],'pic1') : '';
-//	画像をPOSTしてない（登録してない）が既にDBに登録されている場合、DBのパスを入れる（POSTには反映されないから。そうしないと、以前に登録した画像が空として更新されてしまう。）
-	$pic1 = ( empty($pic1) && !empty($dbFormData['pic1']) ) ? $dbFormData['pic1'] : $pic1;
-	$pic2 = ( !empty($_FILES['pic2']['name']) ) ? uploadImg($_FILES['pic2'],'pic2') : '';
-	$pic2 = ( empty($pic2) && !empty($dbFormData['pic2']) ) ? $dbFormData['pic2'] : $pic2;
-	$pic3 = ( !empty($_FILES['pic3']['name']) ) ? uploadImg($_FILES['pic3'],'pic3') : '';
-	$pic3 = ( empty($pic3) && !empty($dbFormData['pic3']) ) ? $dbFormData['pic3'] : $pic3;
-	
-//	更新の場合はDBの情報と入力情報が異なる場合にバリデーションを行う
-//	新規登録画面の場合
-	if(empty($dbFormData)){
+	//	画像をアップロードし、パスを格納
+	$pic1 = (!empty($_FILES['pic1']['name'])) ? uploadImg($_FILES['pic1'], 'pic1') : '';
+	//	画像をPOSTしてない（登録してない）が既にDBに登録されている場合、DBのパスを入れる（POSTには反映されないから。そうしないと、以前に登録した画像が空として更新されてしまう。）
+	$pic1 = (empty($pic1) && !empty($dbFormData['pic1'])) ? $dbFormData['pic1'] : $pic1;
+	$pic2 = (!empty($_FILES['pic2']['name'])) ? uploadImg($_FILES['pic2'], 'pic2') : '';
+	$pic2 = (empty($pic2) && !empty($dbFormData['pic2'])) ? $dbFormData['pic2'] : $pic2;
+	$pic3 = (!empty($_FILES['pic3']['name'])) ? uploadImg($_FILES['pic3'], 'pic3') : '';
+	$pic3 = (empty($pic3) && !empty($dbFormData['pic3'])) ? $dbFormData['pic3'] : $pic3;
+
+	//	更新の場合はDBの情報と入力情報が異なる場合にバリデーションを行う
+	//	新規登録画面の場合
+	if (empty($dbFormData)) {
 		debug('新規登録バリデーション');
-//		未入力チェック
+		//		未入力チェック
 		validRequired($name, 'name');
-//		最大文字数チェック
+		//		最大文字数チェック
 		validMaxlen($name, 'name');
-//		セレクトボックスチェック
+		//		セレクトボックスチェック
 		validSelect($category, 'category_id');
-//		最大文字数チェック
+		//		最大文字数チェック
 		validMaxlen($comment, 'comment', 500);
-//		未入力チェック
+		//		未入力チェック
 		validRequired($price, 'price');
-//		半角数字チェック
+		//		半角数字チェック
 		validNumber($price, 'price');
-	}else { //編集画面の場合
+	} else { //編集画面の場合
 		debug('更新登録バリデーション');
-		if($dbFormData['name'] !== $name){
-//			未入力チェック
+		if ($dbFormData['name'] !== $name) {
+			//			未入力チェック
 			validRequired($name, 'name');
-//			最大文字数チェック
+			//			最大文字数チェック
 			validMaxlen($name, 'name', 500);
 		}
-		if($dbFormData['category_id'] !== $category){
-//			セレクトボックスチェック
+		if ($dbFormData['category_id'] !== $category) {
+			//			セレクトボックスチェック
 			validSelect($category, 'category_id');
 		}
-		if($dbFormData['comment'] !== $comment){
-//			最大文字数チェック
+		if ($dbFormData['comment'] !== $comment) {
+			//			最大文字数チェック
 			validMaxlen($comment, 'comment');
 		}
-		if($dbFormData['price'] != $price){
-//			未入力チェック
+		if ($dbFormData['price'] != $price) {
+			//			未入力チェック
 			validRequired($price, 'price');
-//			半角数字チェック
+			//			半角数字チェック
 			validNumber($price, 'price');
 		}
 	}
-	
-	if(empty($err_msg)){
+
+	if (empty($err_msg)) {
 		debug('バリデーションOK');
-		
-//		例外処理
+
+		//		例外処理
 		try {
-//			DB接続
+			//			DB接続
 			$dbh = dbConnect();
-//			SQL文作成
-//			編集画面＝UPDATE文・新規登録画面＝INSERT文
-			if($edit_flg){
+			//			SQL文作成
+			//			編集画面＝UPDATE文・新規登録画面＝INSERT文
+			if ($edit_flg) {
 				debug('DB更新です');
 				$sql = 'UPDATE product SET name = :name, category_id = :category, price = :price, comment = :comment, pic1 = :pic1, pic2 = :pic2, pic3 = :pic3 WHERE user_id = :u_id AND id = :p_id';
 				$data = array(':name' => $name, ':category' => $category, ':price' => $price, ':comment' => $comment, ':pic1' => $pic1, ':pic2' => $pic2, ':pic3' => $pic3, ':u_id' => $_SESSION['user_id'], ':p_id' => $p_id);
-			}else {
+			} else {
 				debug('DB新規登録です');
 				$sql = 'INSERT INTO product (name, category_id, price, comment, pic1, pic2, pic3, user_id, create_date ) VALUES (:name, :category_id, :price, :comment, :pic1, :pic2, :pic3, :u_id, :date)';
 				$data = array(':name' => $name, ':category_id' => $category, ':price' => $price, ':comment' => $comment, ':pic1' => $pic1, ':pic2' => $pic2, ':pic3' => $pic3, ':u_id' => $_SESSION['user_id'], ':date' => date('Y-m-d H:i:s'));
 			}
-			debug('SQL：'.$sql);
-			debug('流し込みデータ：'.print_r($data, true));
-//			クエリ実行
+			debug('SQL：' . $sql);
+			debug('流し込みデータ：' . print_r($data, true));
+			//			クエリ実行
 			$stmt = queryPost($dbh, $sql, $data);
-			
-//			クエリ成功の場合
-			if($stmt){
+
+			//			クエリ成功の場合
+			if ($stmt) {
 				$_SESSION['msg_success'] = SUC04;
 				debug('マイページへ遷移します');
-				header("Location:mypage.php");//マイページへ
+				header("Location:mypage.php"); //マイページへ
 			}
-			
 		} catch (Exception $e) {
 			error_log('エラー発生：' . $e->getMessage());
 			$err_msg['common'] = MSG07;
@@ -143,8 +142,8 @@ debug('画面処理表示終了＜＜＜＜＜＜＜＜＜＜＜＜＜＜＜＜�
 
 <!--ヘッダーメニュー-->
 <?php
-	$siteTitle = (!$edit_flg) ? '商品登録' : '商品編集';
-include ( dirname(__file__) . '/header.php');
+$siteTitle = (!$edit_flg) ? '商品登録' : '商品編集';
+include(dirname(__file__) . '/header.php');
 ?>
 
 <!-- メインコンテンツ -->
@@ -155,7 +154,7 @@ include ( dirname(__file__) . '/header.php');
 	<!--エラーエッセージ-->
 	<div class="area-msg">
 		<?php
-		if(!empty($err_msg['common'])) echo $err_msg['common'];
+		if (!empty($err_msg['common'])) echo $err_msg['common'];
 		?>
 	</div>
 
@@ -172,8 +171,8 @@ include ( dirname(__file__) . '/header.php');
 						</label>
 						<div class="area-msg">
 							<?php
-									if(!empty($err_msg['name'])) echo $err_msg['name'];
-								?>
+							if (!empty($err_msg['name'])) echo $err_msg['name'];
+							?>
 						</div>
 					</div>
 
@@ -182,22 +181,26 @@ include ( dirname(__file__) . '/header.php');
 						<label>
 							カテゴリ<span class="label-require" id="">必須</span>
 							<select class="inputs" name="category_id">
-								<option value="0" <?php if(getFormData('category_id') == 0 ){echo 'selected';} ?>>選択してください</option>
+								<option value="0" <?php if (getFormData('category_id') == 0) {
+																		echo 'selected';
+																	} ?>>選択してください</option>
 								<?php
-									foreach($dbCategoryData as $key => $val){
+								foreach ($dbCategoryData as $key => $val) {
 								?>
-								<option value="<?php echo $val['id'] ?>" <?php if(getFormData('category_id') == $val['id'] ){ echo 'selected'; } ?>>
-									<?php echo $val['name']; ?>
-								</option>
+									<option value="<?php echo $val['id'] ?>" <?php if (getFormData('category_id') == $val['id']) {
+																															echo 'selected';
+																														} ?>>
+										<?php echo $val['name']; ?>
+									</option>
 								<?php
-									}
+								}
 								?>
 							</select>
 						</label>
 						<div class="area-msg">
 							<?php
-									if(!empty($err_msg['category_id'])) echo $err_msg['category_id'];
-								?>
+							if (!empty($err_msg['category_id'])) echo $err_msg['category_id'];
+							?>
 						</div>
 					</div>
 
@@ -210,8 +213,8 @@ include ( dirname(__file__) . '/header.php');
 						<p class="counter-text"><span id="js-count-view">0</span>/500文字</p>
 						<div class="area-msg">
 							<?php
-									if(!empty($err_msg['comment'])) echo $err_msg['comment'];
-								?>
+							if (!empty($err_msg['comment'])) echo $err_msg['comment'];
+							?>
 						</div>
 					</div>
 					<!--金額-->
@@ -220,13 +223,13 @@ include ( dirname(__file__) . '/header.php');
 						<label>
 							金額<span class="label-require">必須</span>
 							<div class="form-group">
-								<input class="inputs" type="text" name="price" style="width:150px;" placeholder="50,000" value="<?php echo (!empty(getFormData('price'))) ?getFormData('price') : 0; ?>"><span class="option">円</span>
+								<input class="inputs" type="text" name="price" style="width:150px;" placeholder="50,000" value="<?php echo (!empty(getFormData('price'))) ? getFormData('price') : 0; ?>"><span class="option">円</span>
 							</div>
 						</label>
 						<div class="area-msg">
 							<?php
-									if(!empty($err_msg['price'])) echo $err_msg['price'];
-								?>
+							if (!empty($err_msg['price'])) echo $err_msg['price'];
+							?>
 						</div>
 					</div>
 
@@ -239,13 +242,13 @@ include ( dirname(__file__) . '/header.php');
 							<label class="area-drop">
 								<input type="hidden" name="MAX_FILE_SIZE" value="3145728">
 								<input type="file" name="pic1" class="input-file">
-								<img src="<?php echo getFormData('pic1'); ?>" alt="" class="prev-img" style="<?php if(empty(getFormData('pic1'))) echo 'display:none;' ?>">
+								<img src="<?php echo getFormData('pic1'); ?>" alt="" class="prev-img" style="<?php if (empty(getFormData('pic1'))) echo 'display:none;' ?>">
 								ドラッグ＆ドロップ
 							</label>
 							<div class="area-msg">
 								<?php
-										if(!empty($err_msg['pic1'])) echo $err_msg['pic1'];
-									?>
+								if (!empty($err_msg['pic1'])) echo $err_msg['pic1'];
+								?>
 							</div>
 						</div>
 
@@ -254,13 +257,13 @@ include ( dirname(__file__) . '/header.php');
 							<label class="area-drop">
 								<input type="hidden" name="MAX_FILE_SIZE" value="3145728">
 								<input type="file" name="pic2" class="input-file">
-								<img src="<?php echo getFormData('pic2'); ?>" alt="" class="prev-img" style="<?php if(empty(getFormData('pic2'))) echo 'display:none;' ?>">
+								<img src="<?php echo getFormData('pic2'); ?>" alt="" class="prev-img" style="<?php if (empty(getFormData('pic2'))) echo 'display:none;' ?>">
 								ドラッグ＆ドロップ
 							</label>
 							<div class="area-msg">
 								<?php
-										if(!empty($err_msg['pic2'])) echo $err_msg['pic2'];
-									?>
+								if (!empty($err_msg['pic2'])) echo $err_msg['pic2'];
+								?>
 							</div>
 						</div>
 
@@ -269,13 +272,13 @@ include ( dirname(__file__) . '/header.php');
 							<label class="area-drop">
 								<input type="hidden" name="MAX_FILE_SIZE" value="3145728">
 								<input type="file" name="pic3" class="input-file">
-								<img src="<?php echo getFormData('pic3'); ?>" alt="" class="prev-img" style="<?php if(empty(getFormData('pic3'))) echo 'display:none;' ?>">
+								<img src="<?php echo getFormData('pic3'); ?>" alt="" class="prev-img" style="<?php if (empty(getFormData('pic3'))) echo 'display:none;' ?>">
 								ドラッグ＆ドロップ
 							</label>
 							<div class="area-msg">
 								<?php
-											if(!empty($err_msg['pic3'])) echo $err_msg['pic3'];
-										?>
+								if (!empty($err_msg['pic3'])) echo $err_msg['pic3'];
+								?>
 							</div>
 						</div>
 					</div>
@@ -286,12 +289,12 @@ include ( dirname(__file__) . '/header.php');
 				</form>
 			</div>
 		</div>
-		
+
 		<!-- サイドバー-->
 		<?php require('sidebar.php'); ?>
-		
+
 	</div>
 </div>
 
 <!--フッターメニュー-->
-<?php include ( dirname(__FILE__) . '/footer.php'); ?>
+<?php include(dirname(__FILE__) . '/footer.php'); ?>

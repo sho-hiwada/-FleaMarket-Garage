@@ -43,11 +43,9 @@ if(isset($_POST['productId']) && isset($_SESSION['user_id']) && isLogin()){
 //			クエリ実行
 			$stmt = queryPost($dbh, $sql, $data);
 		}
-		
+
 	} catch (Exception $e) {
 		error_log('エラー発生：' . $e->getMessage());
 	}
 }
 debug('Ajax処理完了＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝');
-
-?>

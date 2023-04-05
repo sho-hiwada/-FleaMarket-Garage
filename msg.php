@@ -19,7 +19,6 @@ $viewData = '';
 
 //画面表示用データ取得
 //================================================
-	
 //$_GETパラメータを取得
 $m_id = (!empty($_GET['m_id'])) ? $_GET['m_id'] : '';
 //DBから掲示板とメッセージデータを取得
@@ -73,24 +72,24 @@ if(empty($myUserInfo)){
 //POST送信されていた場合
 if(!empty($_POST)){
 	debug('POST送信があります。');
-	
+
 //	ログイン認証
 	require('auto.php');
-	
+
 //	バリデーションチェック
 	$msg = (isset($_POST['msg'])) ? $_POST['msg'] : '';
 //	最大文字数チェック
 	validMaxlen($msg, 'msg', 500);
 //	未入力チェック
 	validRequired($msg, 'msg');
-	
+
 	if(empty($err_msg)){
 		debug('バリデーションOKです');
 		debug('取得したメッセージID：'.print_r($m_id, true));
 		debug('取得した相手のユーザーID：'.$partnerUserId);
 		debug('取得した相手※のユーザーデータ：'.print_r($partnerUserInfo, true));
 		debug('入力したメッセージ：'.print_r($msg, true));
-		
+
 //		例外処理
 		try {
 //			DBへ接続
@@ -100,14 +99,14 @@ if(!empty($_POST)){
 			$data = array(':b_id' => $m_id, ':send_date' => date('Y-m-d H:i:s'), ':to_user' => $partnerUserId, ':from_user' => $_SESSION['user_id'], ':msg' => $msg, ':date' => date('Y-m-d H:i:s'));
 //			クエリを実行
 			$stmt = queryPost($dbh, $sql, $data);
-			
+
 //			クエリ成功の場合
 			if($stmt){
 				$_POST = array(); //POSTをクリア
 				debug('連絡掲示板へ遷移します');
 				header("Location:".$_SERVER['PHP_SELF'].'?m_id='.$m_id); //自分自身に遷移する
 			}
-			
+
 		}catch (Exception $e) {
 			error_log('エラー発生：'.$e->getMessage());
 			$err_msg['common'] = MSG07;

@@ -23,40 +23,39 @@ $p_id = (!empty($_GET['p_id'])) ? $_GET['p_id'] : '';
 $viewData = getProductOne($p_id);
 //var_dump($viewData);
 //パラメータに不正な値が入っているかチェック
-if(empty($viewData)){
+if (empty($viewData)) {
 	error_log('エラー発生：指定ページに不正な値が入りました');
 	header("Location:index.php"); //TOPページへ遷移する。
 }
-debug('商品ID：'.print_r($_GET['p_id'],true));
+debug('商品ID：' . print_r($_GET['p_id'], true));
 
 //商品画像を判別。なければnoneimg表示
 $productImgNone = 'uploads/noneimg.jpg';
 
 //POST送信されていた場合
-if(!empty($_POST['submit'])){
+if (!empty($_POST['submit'])) {
 	debug('POST情報があります。');
-	
-//	ログイン認証
+
+	//	ログイン認証
 	require('auto.php');
-	
-//	例外処理
+
+	//	例外処理
 	try {
-//		DB接続
+		//		DB接続
 		$dbh = dbConnect();
-//		SQL文作成
+		//		SQL文作成
 		$sql = 'INSERT INTO bord (sale_user, buy_user, product_id, create_date) VALUES (:s_uid, :b_uid, :p_id, :date)';
 		$data = array(':s_uid' => $viewData['user_id'], ':b_uid' => $_SESSION['user_id'], ':p_id' => $p_id, ':date' => date('Y-m-d H:i:s'));
-//		クエリ実行
+		//		クエリ実行
 		$stmt = queryPost($dbh, $sql, $data);
-		
-//		クエリ成功の場合
-		if($stmt){
+
+		//		クエリ成功の場合
+		if ($stmt) {
 			$_SESSION['msg_success'] = SUC05;
 			debug('連絡掲示板へ遷移します。');
-			header("Location:msg.php?m_id=".$dbh->lastInsertID()); //連絡掲示板へ
+			header("Location:msg.php?m_id=" . $dbh->lastInsertID()); //連絡掲示板へ
 		}
-		
-	}catch (Exception $e) {
+	} catch (Exception $e) {
 		error_log('エラー発生：' . $e->getMessage());
 		$err_msg['common'] = MSG07;
 	}
@@ -72,7 +71,7 @@ debug('画面処理終了＜＜＜＜＜＜＜＜＜＜＜＜＜＜＜＜＜＜�
 <!--ヘッダーメニュー-->
 <?php
 $siteTitle = '商品詳細';
-include ( dirname(__file__) . '/header.php');
+include(dirname(__file__) . '/header.php');
 ?>
 
 <!-- メインコンテンツ -->
@@ -87,7 +86,9 @@ include ( dirname(__file__) . '/header.php');
 			<h2>商品タイトル</h2>
 			<span class="debug"><?php echo sanitize($viewData['category']); ?></span>
 			<?php echo sanitize($viewData['name']); ?>
-			<i class="far fa-heart icn-like js-click-like <?php if(isLike($_SESSION['user_id'], $viewData['id'])){echo 'active';} ?>" aria-hidden="true" data-productid="<?php echo sanitize($viewData['id']); ?>"></i>
+			<i class="far fa-heart icn-like js-click-like <?php if (isLike($_SESSION['user_id'], $viewData['id'])) {
+																											echo 'active';
+																										} ?>" aria-hidden="true" data-productid="<?php echo sanitize($viewData['id']); ?>"></i>
 		</div>
 
 	</div>
@@ -130,4 +131,4 @@ include ( dirname(__file__) . '/header.php');
 
 
 <!--フッターメニュー-->
-<?php include ( dirname(__FILE__) . '/footer.php'); ?>
+<?php include(dirname(__FILE__) . '/footer.php'); ?>

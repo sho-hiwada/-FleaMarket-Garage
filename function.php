@@ -230,11 +230,11 @@ function isLogin(){
 //	ログインしている場合
 	if(!empty($_SESSION['login_date'])){
 		debug('ログイン済ユーザーです。');
-		
+
 //		現在日時が最終ログイン日時＋有効期限を超えていた場合
 		if(($_SESSION['login_date'] + $_SESSION['login_limit']) < time()){
 			debug('ログイン有効期限オーバーです');
-			
+
 //			セッションを削除（ログアウト）
 				session_destroy();
 			return false;
@@ -242,7 +242,7 @@ function isLogin(){
 			debug('ログイン有効期限内です');
 			return true;
 		}
-		
+
 	}else{
 		debug('未ログインユーザーです');
 		return false;
@@ -287,7 +287,6 @@ function queryPost($dbh, $sql, $data){
 	debug('クエリ成功');
 	return $stmt;
 }
-	
 
 function getUser($u_id){
 	debug('ユーザー情報を取得します。');
@@ -300,7 +299,6 @@ function getUser($u_id){
 		$data = array(':u_id' => $u_id);
 		// クエリ実行
 		$stmt = queryPost($dbh, $sql, $data);
-	
 //		クエリ結果のデータを１レコード返却
 		if($stmt){
 			return $stmt->fetch(PDO::FETCH_ASSOC);
@@ -327,14 +325,12 @@ function getProduct($u_id, $p_id){
 		$data = array(':u_id' => $u_id, ':p_id' => $p_id);
 //		クエリ実行
 		$stmt = queryPost($dbh, $sql, $data);
-		
 		if($stmt){
 //			クエリ結果のデータを１レコード返却
 			return $stmt->fetch(PDO::FETCH_ASSOC);
 		}else {
 			return false;
 		}
-		
 	}catch (Exception $e) {
 		error_log('エラー発生：' . $e->getMessage());
 	}
@@ -348,17 +344,6 @@ function getProductList($currentMinNum = 1,$category, $sort, $span = 20) {
 		$dbh = dbConnect();
 		//		検索用SQL文作成
 		$sql = 'SELECT id FROM product';
-//		if(!empty($category)) $sql.='WHERE category_id ='.$category;
-//		if(!empty($sort)){
-//			switch($sort){
-//				case 1:
-//					$sql.='ORDER BY price ASC';
-//					break;
-//				case 2:
-//					$sql.='ORDER BY price DESC';
-//					break;
-//			}
-//		}
 		$data = array();
 		//		クエリ実行
 		$stmt = queryPost($dbh, $sql, $data);
@@ -413,14 +398,14 @@ function getProductOne($p_id){
 		$data = array(':p_id' => $p_id);
 //		クエリ実行
 		$stmt = queryPost($dbh, $sql, $data);
-		
+
 		if($stmt){
 //			クエリ結果のデータを１レコード返却
 			return $stmt->fetch(PDO::FETCH_ASSOC);
 		}else {
 			return false;
 		}
-		
+
 	} catch (Exception $e) {
 		error/log('エラー発生：' . $e->getMessage());
 	}
@@ -438,14 +423,14 @@ function getMyProducts($u_id){
 		$data = array(':u_id' => $u_id);
 //		クエリ実行
 		$stmt = queryPost($dbh, $sql, $data);
-		
+
 		if($stmt){
-//			クエリ結果んおデータを全レコード返却
+//			クエリ結果をデータを全レコード返却
 			return $stmt->fetchAll();
 		}else {
 			return false;
 		}
-		
+
 	} catch (Exception $e) {
 		error_log('エラー発生：' . $e->getMessage());
 	}
@@ -463,14 +448,14 @@ function getMsgsAndBord($id){
 		$data = array(':id' => $id);
 //		クエリ実行
 		$stmt = queryPost($dbh, $sql, $data);
-		
+
 		if($stmt){
 //			クエリ結果の全データを返却
 			return $stmt->fetchAll();
 		}else{
 			return false;
 		}
-		
+
 	} catch (Exception $e) {
 		error_log('エラー発生：' . $e->getMessage());
 	}
@@ -514,7 +499,7 @@ function getMyMsgsAndBord($u_id){
 		}else {
 			return false;
 		}
-		
+
 	} catch (Exception $e) {
 		error_log('エラー発生：' . $e->getMessage());
 	}
@@ -532,7 +517,7 @@ function getCategory(){
 		$data = array();
 //		クエリ実行
 		$stmt = queryPost($dbh, $sql, $data);
-		
+
 		if($stmt){
 //			クエリ結果の全データを返却
 			return $stmt->fetchAll();
@@ -558,7 +543,7 @@ function isLike($u_id, $p_id){
 		$data = array(':u_id' => $u_id, ':p_id' => $p_id);
 //		クエリ実行
 		$stmt = queryPost($dbh, $sql, $data);
-		
+
 		if($stmt->rowCount()){
 			debug('お気に入り登録あり');
 			return true;
@@ -566,7 +551,7 @@ function isLike($u_id, $p_id){
 			debug('お気に入り登録なし');
 			return false;
 		}
-		
+
 	} catch (Exception $e) {
 		error_log('エラー発生：' . $e->getMessage());
 	}
@@ -584,14 +569,14 @@ function getMyLike($u_id){
 		$data = array(':u_id' => $u_id);
 //		クエリ実行
 		$stmt = queryPost($dbh, $sql, $data);
-		
+
 		if($stmt){
 //			クエリ結果の全データを返却
 			return $stmt->fetchAll();
 		}else {
 			return false;
 		}
-		
+
 	} catch (Exception $e){
 		error_log('エラー発生：' . $e->getMessage());
 	}
@@ -681,7 +666,7 @@ function makeRandKey($length = 8) {
 function uploadImg($file, $key){
 	debug('画像アップロード処理開始');
 	debug('FILE情報：'.print_r($file, true));
-	
+
 	if(isset($file[error]) && is_int($file['error'])) {
 		try{
 //			バリデーション
@@ -689,41 +674,41 @@ function uploadImg($file, $key){
 //			「UPLOAD_ERR_OK」などの定数はphpでファイルアップロード時に自動的に定義される。定数には値として0や1などの数値が入っている。
 			switch ($file['error']){
 				case UPLOAD_ERR_OK: //OK
-					 break;
+					break;
 				case UPLOAD_ERR_NO_FILE: //ファイル未選択の場合
-					 throw new RuntimeException('ファイルが選択されていません');
+					throw new RuntimeException('ファイルが選択されていません');
 				case UPLOAD_ERR_INI_SIZE: //php.ini定義の最大サイズが超過した時
 				case UPLOAD_ERR_FORM_SIZE: //フォーム定義の最大サイズを超過した時
-					 throw	new RuntimeException('ファイルサイズが大きすぎます');
+					throw	new RuntimeException('ファイルサイズが大きすぎます');
 				default: //その他の場合
 					throw new RuntimeException('その他のエラーが発生しました');
 			}
-			
+
 //			$file['mime']の値はブラウザ側で偽装可能なので、MINEタイプを自前でチェック
 //			exif_imagetype関数は「IMAGETYPE_GIF」「IMAGETYPE_JPEG」などの定数を返す
 			$type = @exif_imagetype($file['tmp_name']);
 			if(!in_array($type, [IMAGETYPE_GIF, IMAGETYPE_JPEG, IMAGETYPE_PNG], true)){ //第三引数にはtrueを設定すると厳密にチェックする。必ずつける。
 				throw new RuntimeException('画像形式が未対応です');
 			}
-			
+
 //			ファイルデータからSHA-1ハッシュをとってファイル名を設定し、ファイルを保存する
 //			ハッシュ化しておかないとアップロードされたファイル名そのまま保存してしまうと同じファイル名がアップロードされる可能性があり、
 //				DBにパスを保存した場合、どっちの画像パスなのか判別つかなくなってします。
 //				image_type_to_extension関数はファイルの拡張子を取得するもの
 			$path = 'uploads/'.sha1_file($file['tmp_name']).image_type_to_extension($type);
-			
+
 			if(!move_uploaded_file($file['tmp_name'], $path)){ //ファイルを移動する
 				throw new RuntimeException('ファイル保存時にエラーが発生しました');
 			}
 //			保存したファイルパスのパーミッション（権限）を変更する。
 			chmod($path, 0644);
-			
+
 			debug('ファイルは正常に保存されました');
 			debug('ファイルパス：'.$path);
 			return $path;
-			
+
 		}catch (RuntimeException $e){
-			
+
 			debug($e->getMessage());
 			global $err_msg;
 			$err_msg[$key] = $e->getMessage();
@@ -773,7 +758,7 @@ function pagination( $currentPageNum, $totalPageNum, $link = '', $pageColNum = 5
 			echo'<li class="list-item';
 			if($currentPageNum == $i){ echo ' active'; }
 			echo'"><a href="?p='.$i.$link.'">'.$i.'</a></li>';
-		} 
+		}
 		if($currentPageNum != $maxPageNum && $maxPageNum > 1){ //現在のページがMAXではない　かつ　総ページ数が１ページじゃない場合、”＞”ボタンを設置
 			echo'<li class="list-item"><a href="?p='.$maxPageNum.$link.'">&gt;</a></li>';
 		}
@@ -806,6 +791,3 @@ function appendGetParam($arr_del_key = array()){
 		return $str;
 	}
 }
-
-
-?>

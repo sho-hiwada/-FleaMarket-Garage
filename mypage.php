@@ -23,38 +23,6 @@ $productData = getMyProducts($u_id);
 //DBから連絡掲示板データを取得
 $bordData = getMyMsgsAndBord($u_id);
 
-// // ユーザーIDに対応するユーザー情報を取得する
-// $viewData = getUser($u_id);
-// debug('取得した自分の情報：' . print_r($viewData, true));
-// //パラメータに不正な値が入っているかチェック
-// if (empty($viewData)) {
-// 	error_log('エラー発生：指定のページに不正な値が入りました。');
-// 	header("Location:mypage.php"); //マイページへ遷移
-// }
-
-// //viewDataから相手のユーザーIDを取り出す(自分のIDを取ってきてunsetで取り除く)
-// $dealUserIds[] = $bordData[0]['sale_user'];
-// $dealUserIds[] = $bordData[0]['buy_user'];
-// if (($key = array_search($_SESSION['user_id'], $dealUserIds)) !== false) {
-// 	unset($dealUserIds[$key]);
-// }
-// //相手のユーザーIDを格納
-// $partnerUserId = array_shift($dealUserIds);
-// debug('取得した相手のユーザーID：' . $partnerUserId);
-// //DBから取引相手のユーザー情報を取得
-// if (isset($partnerUserId)) {
-// 	$partnerUserInfo = getUser($partnerUserId);
-// }
-// debug('取得した相手のユーザー情報：' . print_r($partnerUserInfo, true));
-// //相手のユーザー情報が取れたかチェック
-// if (empty($partnerUserInfo)) {
-// 	error_log('エラー発生：相手のユーザー情報が取得できませんでした。');
-// 	header("Location:mypage.php"); //マイページへ遷移
-// }
-
-//DBから相手の名前を取得
-// $partnerData = getUser($u_id);
-
 //DBからお気に入りデータを取得
 $likeData = getMyLike($u_id);
 
@@ -112,7 +80,7 @@ include(dirname(__file__) . '/header.php');
 				</div>
 			</div>
 
-			<!-- 連絡掲示板-->
+			<!-- 連絡掲示板 -->
 			<section class="mypage-section">
 				<h2 class="mypage-title">
 					連絡掲示板一覧
@@ -158,7 +126,7 @@ include(dirname(__file__) . '/header.php');
 				</div>
 			</section>
 
-			<!--                  お気に入り-->
+			<!-- お気に入り -->
 			<div class="mypage-section" style="background: #fafafa;">
 				<div class="mypage-title">
 					<h2>お気に入り一覧</h2>
